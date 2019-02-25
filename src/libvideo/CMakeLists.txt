@@ -7,13 +7,9 @@ set (SOURCES Video.cpp)
 
 
 # target name
-set (LIBVIDEO video)
+set (LIBVIDEO ${VIDEO_LIBRARY})
 
 # compile options
-set (CMAKE_CXX_STANDARD ${CPP_VERSION})
-set (CMAKE_CXX_FLAGS_DEBUG "-g -ggdb")
-set (CMAKE_CXX_FLAGS_RELEASE "-O3")
-add_compile_options (-W -Wall)
 link_directories    (${FFMPEG_LIBRARY_DIR})
 include_directories (${FFMPEG_INCLUDE_DIR} ${GLOBAL_TRANSCODING_SERVER_PROJECT_INCLUDE_DIR})
 

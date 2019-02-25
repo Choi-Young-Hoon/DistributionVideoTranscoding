@@ -1,11 +1,12 @@
 #include "libvideo/Video.hpp"
 
-#include "libavformat/avformat.h"
+extern "C" {
+    #include "libavformat/avformat.h"
+};
 
-Video::Video() 
-{
+Video::Video() {
     AVFormatContext* formatCtx = NULL;
-    avformat_open_input(&formatCtx, NULL, NULL, NULL);
+    avformat_open_input(&formatCtx, "./test.jpg", NULL, NULL);
 }
 
 Video::~Video()
