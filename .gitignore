@@ -1,0 +1,8 @@
+tags
+Makefile
+*.cmake
+CMakeCache.txt
+CMakeFiles/
+.ycm_extra_conf.py
+install_manifest.txt
+.vscode/
