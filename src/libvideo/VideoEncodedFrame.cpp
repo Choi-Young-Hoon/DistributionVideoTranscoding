@@ -22,8 +22,13 @@ VideoEncodedFrame::~VideoEncodedFrame() {
     }
 }
 
+bool VideoEncodedFrame::isEmpty() {
+    if (this->m_packet->data != NULL) {
+        return false;
+    }
+    return true;
+}
 
 void VideoEncodedFrame::clear() {
     av_packet_unref(this->m_packet);
 }
-

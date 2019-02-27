@@ -6,7 +6,9 @@
 
 #include "libvideo/VideoErrorDefine.hpp"
 #include "libvideo/VideoError.hpp"
-#include "libvideo/StreamIndex.hpp"
+#include "libvideo/VideoType.hpp"
+#include "libvideo/VideoStreamIndex.hpp"
+#include "libvideo/VideoCodecID.hpp"
 #include "libvideo/VideoEncodedFrame.hpp"
 
 struct AVFormatContext;
@@ -25,11 +27,25 @@ namespace vd {
 
     public:
         bool isOpen();
-        
         void printInfo();
 
+        VideoStreamIndex streamIndex();
+        STREAM_INDEX getVideoStreamIndex();
+        STREAM_INDEX getAudioStreamIndex();
+
+        VideoCodecID codecID();
+        CODEC_ID getVideoCodecID();
+        CODEC_ID getAudioCodecID();
+
     private:
-        StreamIndex m_streamIndex;
+        void getStreamIndex();
+        void getCodecID();
+
+        CODEC_ID getCodecID(STREAM_INDEX streamIndex);
+
+    private:
+        VideoCodecID     m_codecID;
+        VideoStreamIndex m_streamIndex;
 
         AVFormatContext* m_formatContext;
     };

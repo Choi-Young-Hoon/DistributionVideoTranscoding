@@ -4,6 +4,8 @@
 #include <iostream>
 #include <memory>
 
+#include "libvideo/VideoType.hpp"
+
 struct AVPacket;
 namespace vd {
 
@@ -13,9 +15,11 @@ namespace vd {
         virtual ~VideoEncodedFrame();
 
         friend class VideoReader;
+
     public:
+        bool isEmpty();
         void clear();
-        
+
     private:
         AVPacket* m_packet;
     };
