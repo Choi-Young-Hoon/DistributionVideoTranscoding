@@ -47,13 +47,21 @@ bool VideoReader::isOpen() {
 
 void VideoReader::readFrame(VideoEncodedFrame* encoded_frame, VideoError* error) {
     if (this->isOpen() == false) {
-        error->error(FILE_NOT_OPENED, getErrorStr(FILE_NOT_OPENED));
+        error->error(FILE_NOT_OPENED, VideoError::getErrorStr(FILE_NOT_OPENED));
         return;
     }
     encoded_frame->clear();
-    int ret = 0;
+
+    int ret = av_read_frame(this->format_ctx_, encoded_frame->packet_);
+    if (ret == AVERROR_EOF) {
+        error->error(FILE_EOF, VideoError::getErrorStr(FILE_EOF), true);
+        return;
+    } else if (ret < 0) {
+        error->error(ret, VideoError::avStrError(ret));
+        return;
+    }
     
-    error->success(ret);
+    error->success();
 }
 
 void VideoReader::printInfo() {

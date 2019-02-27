@@ -12,6 +12,7 @@ namespace vd {
         explicit VideoEncodedFrame();
         virtual ~VideoEncodedFrame();
 
+        friend class VideoReader;
     public:
         void clear();
         

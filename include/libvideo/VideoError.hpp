@@ -4,11 +4,14 @@
 #include <iostream>
 #include <string>
 
+#include "libvideo/VideoErrorDefine.hpp"
+
 namespace vd {
 
     class VideoError {
     public:
-        static std::string avStrError(int error);
+        static std::string avStrError (int error);
+        static std::string getErrorStr(VIDEO_ERROR error_code);
 
     public:
         explicit VideoError();

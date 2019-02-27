@@ -16,24 +16,9 @@ namespace vd {
         SUCCESS = 0,
 
         FILE_NOT_OPENED = 1000,
+        FILE_EOF,
     };
     typedef enum _VIDEO_ERROR VIDEO_ERROR;
-
-
-    static std::string getErrorStr(VIDEO_ERROR error_code) {
-        std::string ret_str;
-        
-        switch (error_code) {
-        case SUCCESS:         ret_str = "Success";         break;
-        case FILE_NOT_OPENED: ret_str = "File not opened"; break;
-
-        default:
-            ret_str = "Unknown";
-        }
-
-        return ret_str;
-    }
-
 };
 
 #endif

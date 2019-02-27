@@ -8,9 +8,10 @@
 using namespace vd;
 
 
-Buffer::Buffer() {
-    this->clear();
-}
+Buffer::Buffer() 
+: data_(NULL)
+, length_(0), buffer_size_(0)
+{}
 
 Buffer::~Buffer() {
     this->clear();
