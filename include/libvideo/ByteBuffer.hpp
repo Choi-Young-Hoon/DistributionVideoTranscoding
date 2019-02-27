@@ -19,10 +19,10 @@ namespace vd {
         void reserve (int size);
         void clear();
 
-        void setData(unsigned char* data, int length);
+        void setData(const unsigned char* data, int length);
 
-        void append(unsigned char* data, int length);
-        void append(unsigned char data); 
+        void append(const unsigned char* data, int length);
+        void append(const unsigned char data); 
 
         void copy(Buffer& buffer);
 
@@ -39,9 +39,9 @@ namespace vd {
     public:
         explicit ByteBuffer();
         explicit ByteBuffer(int bufferSize);
-        explicit ByteBuffer(ByteBuffer& buffer);
+                 ByteBuffer(const ByteBuffer& buffer);
         explicit ByteBuffer(const char* data);
-        explicit ByteBuffer(unsigned char* data, int length);
+        explicit ByteBuffer(const unsigned char* data, int length);
 
         virtual ~ByteBuffer();
 
@@ -52,26 +52,26 @@ namespace vd {
         const unsigned char* getData();
         int                  getLength();
 
-        void setData(ByteBuffer& buffer);
+        void setData(const ByteBuffer& buffer);
 
-        void append(ByteBuffer& buffer);
+        void append(const ByteBuffer& buffer);
         void append(const char* data);
-        void append(unsigned char* data, int length);
+        void append(const unsigned char* data, int length);
 
-        ByteBuffer& sub(int startIndex, int endIndex);
+        ByteBuffer sub(int startIndex, int count);
 
-        ByteBuffer& clone();
+        ByteBuffer clone();
 
     public:
         unsigned char& operator[](int index);
-        ByteBuffer&    operator+=(ByteBuffer& buffer);
-        void           operator= (ByteBuffer& buffer);
+        ByteBuffer&    operator+=(const ByteBuffer& buffer);
+        ByteBuffer&    operator= (const ByteBuffer& buffer);
         
     private:
-        void setData(unsigned char* data, int length);
-        void setData(std::shared_ptr<Buffer> buffer);
+        void setData(const unsigned char* data, int length);
+        void setData(const std::shared_ptr<Buffer> buffer);
 
-        void append(std::shared_ptr<Buffer> buffer);
+        void append(const std::shared_ptr<Buffer> buffer);
         
     private:
         std::shared_ptr<Buffer> m_buffer;    

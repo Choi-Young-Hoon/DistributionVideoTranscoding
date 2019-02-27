@@ -31,6 +31,5 @@ TEST(Video_TEST, READ_FRAME_TEST) {
             break;
         }
         ASSERT_TRUE(error.isSuccess());
-        std::cout << "Frame count: " << ++frameCount << std::endl;
     }
 }
