@@ -3,11 +3,11 @@
 using namespace vd;
 
 StreamIndex::StreamIndex()
-: video_stream_index_(0), audio_stream_index_(0)
+: m_videoStreamIndex(0), m_audioStreamIndex(0)
 {}
 
-StreamIndex::StreamIndex(int video_stream_index, int audio_stream_index)
-: video_stream_index_(video_stream_index), audio_stream_index_(audio_stream_index)
+StreamIndex::StreamIndex(int videoStreamIndex, int audioStreamIndex)
+: m_videoStreamIndex(videoStreamIndex), m_audioStreamIndex(audioStreamIndex)
 {}
 
 StreamIndex::~StreamIndex()
@@ -15,17 +15,17 @@ StreamIndex::~StreamIndex()
 
 
 int StreamIndex::videoStreamIndex() {
-    return this->video_stream_index_;
+    return this->m_videoStreamIndex;
 }
 
-void StreamIndex::videoStreamIndex(int video_stream_index) {
-    this->video_stream_index_ = video_stream_index;
+void StreamIndex::videoStreamIndex(int videoStreamIndex) {
+    this->m_videoStreamIndex = videoStreamIndex;
 }
 
 int StreamIndex::audioStreamIndex() {
-    return this->audio_stream_index_;
+    return this->m_audioStreamIndex;
 }
 
-void StreamIndex::audioStreamIndex(int audio_stream_index) {
-    this->audio_stream_index_ = audio_stream_index;
+void StreamIndex::audioStreamIndex(int audioStreamIndex) {
+    this->m_audioStreamIndex = audioStreamIndex;
 }

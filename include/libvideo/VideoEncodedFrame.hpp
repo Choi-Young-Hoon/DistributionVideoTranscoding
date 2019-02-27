@@ -17,7 +17,7 @@ namespace vd {
         void clear();
         
     private:
-        AVPacket* packet_;
+        AVPacket* m_packet;
     };
 
 };

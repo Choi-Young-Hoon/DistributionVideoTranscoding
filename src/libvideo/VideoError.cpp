@@ -8,27 +8,27 @@ extern "C" {
 using namespace vd;
 
 
-std::string VideoError::avStrError(int error_code) {
-    char error_message[1024] = {0, };
+std::string VideoError::avStrError(int errorCode) {
+    char errorMessage[1024] = {0, };
     
-    av_strerror(error_code, error_message, 1024);
+    av_strerror(errorCode, errorMessage, 1024);
 
-    return error_message;
+    return errorMessage;
 }
 
-std::string VideoError::getErrorStr(VIDEO_ERROR error_code)  {
-    std::string ret_str;
+std::string VideoError::getErrorStr(VIDEO_ERROR errorCode)  {
+    std::string retStr;
     
-    switch (error_code) {
-    case SUCCESS:         ret_str = "Success";         break;
-    case FILE_NOT_OPENED: ret_str = "File not opened"; break;
-    case FILE_EOF:        ret_str = "File EOF";        break;
+    switch (errorCode) {
+    case SUCCESS:         retStr = "Success";         break;
+    case FILE_NOT_OPENED: retStr = "File not opened"; break;
+    case FILE_EOF:        retStr = "File EOF";        break;
     
     default:
-        ret_str = "Unknown";
+        retStr = "Unknown";
     }
 
-    return ret_str;
+    return retStr;
 }
 
 
@@ -36,8 +36,8 @@ VideoError::VideoError() {
     this->success();
 }
 
-VideoError::VideoError(int error_code, std::string error_message, bool is_success) {
-    this->error(error_code, error_message, is_success);
+VideoError::VideoError(int errorCode, std::string errorMessage, bool isSuccess) {
+    this->error(errorCode, errorMessage, isSuccess);
 }
 
 VideoError::~VideoError() 
@@ -48,26 +48,26 @@ void VideoError::success() {
     this->success(0);
 }
 
-void VideoError::success(int return_code) {
-    this->return_code_ = return_code;
-    this->error_message_ = "";
-    this->is_success_ = true;
+void VideoError::success(int returnCode) {
+    this->m_returnCode   = returnCode;
+    this->m_errorMessage = "";
+    this->m_isSuccess    = true;
 }
 
-void VideoError::error(int error_code, std::string error_message, bool is_success) {
-    this->return_code_ = error_code;
-    this->error_message_ = error_message;
-    this->is_success_ = is_success;
+void VideoError::error(int errorCode, std::string errorMessage, bool isSuccess) {
+    this->m_returnCode   = errorCode;
+    this->m_errorMessage = errorMessage;
+    this->m_isSuccess    = isSuccess;
 }
 
 int VideoError::returnCode() {
-    return this->return_code_;
+    return this->m_returnCode;
 }
 
 std::string VideoError::errorMessage() {
-    return this->error_message_;
+    return this->m_errorMessage;
 }
 
 bool VideoError::isSuccess() {
-    return this->is_success_;
+    return this->m_isSuccess;
 }

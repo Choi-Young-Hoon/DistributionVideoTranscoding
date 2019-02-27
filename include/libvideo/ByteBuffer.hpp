@@ -27,10 +27,10 @@ namespace vd {
         void copy(Buffer& buffer);
 
     public:
-        unsigned char* data_;
-        int            length_;
+        unsigned char* m_data;
+        int            m_length;
 
-        int buffer_size_;
+        int m_bufferSize;
     };
         
 
@@ -38,8 +38,8 @@ namespace vd {
     class ByteBuffer {
     public:
         explicit ByteBuffer();
-        explicit ByteBuffer(int buffer_size);
-        explicit ByteBuffer(ByteBuffer& byteBuffer);
+        explicit ByteBuffer(int bufferSize);
+        explicit ByteBuffer(ByteBuffer& buffer);
         explicit ByteBuffer(const char* data);
         explicit ByteBuffer(unsigned char* data, int length);
 
@@ -52,13 +52,13 @@ namespace vd {
         const unsigned char* getData();
         int                  getLength();
 
-        void setData(ByteBuffer& byte_buffer);
+        void setData(ByteBuffer& buffer);
 
-        void append(ByteBuffer& byte_buffer);
+        void append(ByteBuffer& buffer);
         void append(const char* data);
         void append(unsigned char* data, int length);
 
-        ByteBuffer& sub(int start_index, int end_index);
+        ByteBuffer& sub(int startIndex, int endIndex);
 
         ByteBuffer& clone();
 
@@ -74,7 +74,7 @@ namespace vd {
         void append(std::shared_ptr<Buffer> buffer);
         
     private:
-        std::shared_ptr<Buffer> buffer_;    
+        std::shared_ptr<Buffer> m_buffer;    
     };
 
 };

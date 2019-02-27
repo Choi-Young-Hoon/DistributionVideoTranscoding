@@ -6,19 +6,19 @@ namespace vd {
     class StreamIndex {
     public:
         explicit StreamIndex();
-        explicit StreamIndex(int video_stream_index, int audio_stream_index);
+        explicit StreamIndex(int videoStreamIndex, int audioStreamIndex);
         virtual ~StreamIndex();
 
     public:
         int  videoStreamIndex();
-        void videoStreamIndex(int video_stream_index);
+        void videoStreamIndex(int videoStreamIndex);
 
         int  audioStreamIndex();
-        void audioStreamIndex(int audio_stream_index);
+        void audioStreamIndex(int audioStreamIndex);
 
     private:
-        int video_stream_index_;
-        int audio_stream_index_;
+        int m_videoStreamIndex;
+        int m_audioStreamIndex;
     };
     
 };

@@ -8,22 +8,22 @@ extern "C" {
 using namespace vd;
 
 VideoEncodedFrame::VideoEncodedFrame() {
-    VIDEO_ALLOC_EXCEPTION(this->packet_ = new AVPacket);
-    av_init_packet(this->packet_);
+    VIDEO_ALLOC_EXCEPTION(this->m_packet = new AVPacket);
+    av_init_packet(this->m_packet);
 }
 
 VideoEncodedFrame::~VideoEncodedFrame() {
-    if (this->packet_->data != NULL) {
-        delete[] this->packet_->data;
+    if (this->m_packet->data != NULL) {
+        delete[] this->m_packet->data;
     }
 
-    if (this->packet_ != NULL) {
-        delete this->packet_;
+    if (this->m_packet != NULL) {
+        delete this->m_packet;
     }
 }
 
 
 void VideoEncodedFrame::clear() {
-    av_packet_unref(this->packet_);
+    av_packet_unref(this->m_packet);
 }
 

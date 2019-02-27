@@ -7,7 +7,7 @@ extern "C" {
 using namespace vd;
 
 VideoReader::VideoReader()
-: format_ctx_(NULL)
+: m_formatContext(NULL)
 {}
 
 VideoReader::~VideoReader() {
@@ -15,44 +15,44 @@ VideoReader::~VideoReader() {
 }
 
 
-void VideoReader::open(const std::string file_name, VideoError* error) {
+void VideoReader::open(const std::string fileName, VideoError* error) {
     int ret = 0;
 
-    ret = avformat_open_input(&this->format_ctx_, file_name.c_str(), NULL, NULL);
+    ret = avformat_open_input(&this->m_formatContext, fileName.c_str(), NULL, NULL);
     if (ret < 0) {
         error->error(ret, VideoError::avStrError(ret));
         return;
     }
-    int video_stream_index = av_find_best_stream(this->format_ctx_, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
-    int audio_stream_index = av_find_best_stream(this->format_ctx_, AVMEDIA_TYPE_AUDIO, -1, video_stream_index, NULL, 0);
-    this->stream_index_.videoStreamIndex(video_stream_index);
-    this->stream_index_.audioStreamIndex(audio_stream_index);
+    int videoStreamIndex = av_find_best_stream(this->m_formatContext, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
+    int audioStreamIndex = av_find_best_stream(this->m_formatContext, AVMEDIA_TYPE_AUDIO, -1, audioStreamIndex, NULL, 0);
+    this->m_streamIndex.videoStreamIndex(videoStreamIndex);
+    this->m_streamIndex.audioStreamIndex(audioStreamIndex);
 
     error->success();
 }
 
 void VideoReader::close() {
     if (this->isOpen() == true) {
-        avformat_close_input(&this->format_ctx_);
+        avformat_close_input(&this->m_formatContext);
     }
-    this->format_ctx_ = NULL;
+    this->m_formatContext = NULL;
 }
 
 bool VideoReader::isOpen() {
-    if (this->format_ctx_ == NULL) {
+    if (this->m_formatContext == NULL) {
         return false;
     }
     return true;
 }
 
-void VideoReader::readFrame(VideoEncodedFrame* encoded_frame, VideoError* error) {
+void VideoReader::readFrame(VideoEncodedFrame* encodedFrame, VideoError* error) {
     if (this->isOpen() == false) {
         error->error(FILE_NOT_OPENED, VideoError::getErrorStr(FILE_NOT_OPENED));
         return;
     }
-    encoded_frame->clear();
+    encodedFrame->clear();
 
-    int ret = av_read_frame(this->format_ctx_, encoded_frame->packet_);
+    int ret = av_read_frame(this->m_formatContext, encodedFrame->m_packet);
     if (ret == AVERROR_EOF) {
         error->error(FILE_EOF, VideoError::getErrorStr(FILE_EOF), true);
         return;
@@ -68,5 +68,5 @@ void VideoReader::printInfo() {
     if (this->isOpen() == false) {
         return;
     }
-    av_dump_format(this->format_ctx_, 0, NULL, 0);
+    av_dump_format(this->m_formatContext, 0, NULL, 0);
 }

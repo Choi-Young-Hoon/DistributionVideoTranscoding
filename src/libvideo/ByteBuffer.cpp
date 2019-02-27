@@ -9,8 +9,8 @@ using namespace vd;
 
 
 Buffer::Buffer() 
-: data_(NULL)
-, length_(0), buffer_size_(0)
+: m_data(NULL)
+, m_length(0), m_bufferSize(0)
 {}
 
 Buffer::~Buffer() {
@@ -18,90 +18,90 @@ Buffer::~Buffer() {
 }
 
 void Buffer::clear() {
-    if (this->data_ != NULL) {
-        delete[] this->data_;
+    if (this->m_data != NULL) {
+        delete[] this->m_data;
     }
-    this->data_        = NULL;
-    this->length_      = 0;
-    this->buffer_size_ = 0;
+    this->m_data       = NULL;
+    this->m_length     = 0;
+    this->m_bufferSize = 0;
 }
 
 void Buffer::allocate(int size) {
     this->clear();
 
-    VIDEO_ALLOC_EXCEPTION(this->data_ = new unsigned char[size]);
-    memset(this->data_, 0x00, this->buffer_size_);
+    VIDEO_ALLOC_EXCEPTION(this->m_data = new unsigned char[size]);
+    memset(this->m_data, 0x00, this->m_bufferSize);
 
-    this->buffer_size_ = size;
+    this->m_bufferSize = size;
 }
 
 void Buffer::reserve(int size) {
-    unsigned char* temp_data = this->data_;
+    unsigned char* tempData = this->m_data;
     
-    VIDEO_ALLOC_EXCEPTION(this->data_ = new unsigned char[size]);
-    memset(this->data_, 0x00, size);
+    VIDEO_ALLOC_EXCEPTION(this->m_data = new unsigned char[size]);
+    memset(this->m_data, 0x00, size);
     
-    int copy_size = (this->buffer_size_ <= size) ? this->buffer_size_ : size;
-    memcpy(this->data_, temp_data, copy_size);
-    this->length_      = (this->length_ <= size) ? this->length_ : size;
-    this->buffer_size_ = size;
+    int copySize = (this->m_bufferSize <= size) ? this->m_bufferSize : size;
+    memcpy(this->m_data, tempData, copySize);
+    this->m_length     = (this->m_length <= size) ? this->m_length : size;
+    this->m_bufferSize = size;
 
-    delete[] temp_data;
+    delete[] tempData;
 }
 
 void Buffer::setData(unsigned char* data, int length) {
-    if (this->buffer_size_ >= length) {
-        memset(this->data_, 0x00, this->buffer_size_);
+    if (this->m_bufferSize >= length) {
+        memset(this->m_data, 0x00, this->m_bufferSize);
     } else {
         this->allocate(length);
     }
 
-    memcpy(this->data_, data, length);
-    this->length_ = length;
+    memcpy(this->m_data, data, length);
+    this->m_length = length;
 }
 
 void Buffer::append(unsigned char* data, int length) {
-    int total_data_size = this->length_ + length;
-    if (this->buffer_size_ >= total_data_size) {
-        memcpy(this->data_ + this->length_, (void*)data, length);
-        this->length_ += length;
+    int totalDataSize = this->m_length + length;
+    if (this->m_bufferSize >= totalDataSize) {
+        memcpy(this->m_data + this->m_length, (void*)data, length);
+        this->m_length += length;
     } else {
-        this->reserve(total_data_size);
+        this->reserve(totalDataSize);
         this->append(data, length);
     }
 }
 
 void Buffer::append(unsigned char data) {
-    int total_data_size = this->length_ + 1;
-    if (this->buffer_size_ >= total_data_size) {
-        this->data_[this->length_] = data;
-        this->length_++;
+    int totalDataSize = this->m_length + 1;
+    if (this->m_bufferSize >= totalDataSize) {
+        this->m_data[this->m_length] = data;
+        this->m_length++;
     } else {
-        int reserve_size = 0;
-        reserve_size = total_data_size + (total_data_size / 2);
-        reserve_size = (reserve_size <= 2) ? 10 : reserve_size;
+        int reserveSize = 0;
+        reserveSize = totalDataSize + (totalDataSize / 2);
+        reserveSize = (reserveSize <= 2) ? 10 : reserveSize;
 
-        this->reserve(reserve_size);
+        this->reserve(reserveSize);
         this->append(data);
     }
 }
 
 void Buffer::copy(Buffer& buffer) {
     this->clear();
-    this->setData(buffer.data_, buffer.length_);
+    this->setData(buffer.m_data, buffer.m_length);
 }
 
 ByteBuffer::ByteBuffer() 
-: buffer_(new Buffer())
+: m_buffer(new Buffer())
 {}
 
-ByteBuffer::ByteBuffer(int buffer_size) 
-: buffer_(new Buffer()) {
-    this->buffer_->allocate(buffer_size);
+ByteBuffer::ByteBuffer(int bufferSize) 
+: m_buffer(new Buffer()) {
+    this->m_buffer->allocate(bufferSize);
 }
 
-ByteBuffer::ByteBuffer(ByteBuffer& byte_buffer) 
-: buffer_(byte_buffer.buffer_)
+ByteBuffer::ByteBuffer(ByteBuffer& buffer) 
+: m_buffer(buffer.m_buffer)
 {}
 
 ByteBuffer::ByteBuffer(const char* data) {
@@ -117,30 +117,30 @@ ByteBuffer::~ByteBuffer() {
 }
 
 void ByteBuffer::clear() {
-    this->buffer_->clear();
+    this->m_buffer->clear();
 }
 
 bool ByteBuffer::isEmpty() {
-    if (this->buffer_->data_ != NULL) {
+    if (this->m_buffer->m_data != NULL) {
         return false;
     }
     return true;
 }
 
 const unsigned char* ByteBuffer::getData() {
-    return this->buffer_->data_;
+    return this->m_buffer->m_data;
 }
 
 int ByteBuffer::getLength() {
-    return this->buffer_->length_;
+    return this->m_buffer->m_length;
 }
 
-void ByteBuffer::setData(ByteBuffer& byte_buffer) {
-    this->setData(byte_buffer.buffer_);
+void ByteBuffer::setData(ByteBuffer& buffer) {
+    this->setData(buffer.m_buffer);
 }
 
-void ByteBuffer::append(ByteBuffer& byte_buffer) {
-    this->append(byte_buffer.buffer_);
+void ByteBuffer::append(ByteBuffer& buffer) {
+    this->append(buffer.m_buffer);
 }
 
 void ByteBuffer::append(const char* data) {
@@ -148,28 +148,28 @@ void ByteBuffer::append(const char* data) {
 }
 
 void ByteBuffer::append(unsigned char* data, int length) {
-    this->buffer_->append(data, length);
+    this->m_buffer->append(data, length);
 }
 
-ByteBuffer& ByteBuffer::sub(int start_index, int end_index) {
-    int data_size = end_index - start_index;
+ByteBuffer& ByteBuffer::sub(int startIndex, int endIndex) {
+    int dataSize = endIndex - startIndex;
     
-    ByteBuffer buffer(data_size);
-    for (int i = start_index; i < end_index; i++) {
-        buffer.buffer_->append(this->buffer_->data_[i]);
+    ByteBuffer buffer(dataSize);
+    for (int i = startIndex; i < endIndex; i++) {
+        buffer.m_buffer->append(this->m_buffer->m_data[i]);
     }
     return buffer;
 }
 
 ByteBuffer& ByteBuffer::clone() {
     ByteBuffer buffer;
-    buffer.buffer_->copy(*this->buffer_);
+    buffer.m_buffer->copy(*this->m_buffer);
     
     return buffer;
 }
 
 unsigned char& ByteBuffer::operator[](int index) {
-    return this->buffer_->data_[index];
+    return this->m_buffer->m_data[index];
 }
 
 ByteBuffer& ByteBuffer::operator+=(ByteBuffer& buffer) {
@@ -183,13 +183,13 @@ void ByteBuffer::operator=(ByteBuffer& buffer) {
 }
 
 void ByteBuffer::setData(unsigned char* data, int length) {
-    this->buffer_->setData(data, length);
+    this->m_buffer->setData(data, length);
 }
 
 void ByteBuffer::setData(std::shared_ptr<Buffer> buffer) {
-    this->buffer_ = buffer;
+    this->m_buffer = buffer;
 }
 
 void  ByteBuffer::append(std::shared_ptr<Buffer> buffer) {
-    this->buffer_->append(buffer->data_, buffer_->length_);
+    this->m_buffer->append(buffer->m_data, buffer->m_length);
 }

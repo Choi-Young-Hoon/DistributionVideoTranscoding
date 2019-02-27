@@ -10,18 +10,18 @@ namespace vd {
 
     class VideoError {
     public:
-        static std::string avStrError (int error);
-        static std::string getErrorStr(VIDEO_ERROR error_code);
+        static std::string avStrError (int errorCode);
+        static std::string getErrorStr(VIDEO_ERROR errorCode);
 
     public:
         explicit VideoError();
-        explicit VideoError(int error_code, std::string error_message, bool is_success = false);
+        explicit VideoError(int errorCode, std::string errorMessage, bool isSuccess = false);
         virtual ~VideoError();
 
     public:
         void success();
-        void success(int return_code);
-        void error(int return_code, std::string error_message, bool is_success = false);
+        void success(int returnCode);
+        void error(int returnCode, std::string errorMessage, bool isSuccess = false);
         
     public:
         bool isSuccess();
@@ -30,10 +30,10 @@ namespace vd {
         std::string errorMessage();
 
     private:
-        int return_code_;
-        std::string error_message_;
+        int m_returnCode;
+        std::string m_errorMessage;
 
-        bool is_success_;
+        bool m_isSuccess;
     };
     
 };

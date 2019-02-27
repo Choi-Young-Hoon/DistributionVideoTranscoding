@@ -18,10 +18,10 @@ namespace vd {
         virtual ~VideoReader();
 
     public:
-        void open (const std::string file_name, VideoError* error);
+        void open (const std::string fileName, VideoError* error);
         void close();
 
-        void readFrame(VideoEncodedFrame* encoded_frame, VideoError* error);
+        void readFrame(VideoEncodedFrame* encodedFrame, VideoError* error);
 
     public:
         bool isOpen();
@@ -29,9 +29,9 @@ namespace vd {
         void printInfo();
 
     private:
-        StreamIndex stream_index_;
+        StreamIndex m_streamIndex;
 
-        AVFormatContext* format_ctx_;
+        AVFormatContext* m_formatContext;
     };
 
 };
