@@ -16,7 +16,7 @@ VideoReader::~VideoReader() {
 
 
 void VideoReader::open(const std::string file_name, VideoError* error) {
-    int ret;
+    int ret = 0;
 
     ret = avformat_open_input(&this->format_ctx_, file_name.c_str(), NULL, NULL);
     if (ret < 0) {
@@ -38,16 +38,27 @@ void VideoReader::close() {
     this->format_ctx_ = NULL;
 }
 
-void VideoReader::printInfo() {
-    if (this->isOpen() == false) {
-        return;
-    }
-    av_dump_format(this->format_ctx_, 0, NULL, 0);
-}
-
 bool VideoReader::isOpen() {
     if (this->format_ctx_ == NULL) {
         return false;
     }
     return true;
+}
+
+void VideoReader::readFrame(VideoEncodedFrame* encoded_frame, VideoError* error) {
+    if (this->isOpen() == false) {
+        error->error(FILE_NOT_OPENED, getErrorStr(FILE_NOT_OPENED));
+        return;
+    }
+    encoded_frame->clear();
+    int ret = 0;
+    
+    error->success(ret);
+}
+
+void VideoReader::printInfo() {
+    if (this->isOpen() == false) {
+        return;
+    }
+    av_dump_format(this->format_ctx_, 0, NULL, 0);
 }

@@ -5,6 +5,7 @@
 #include <string>
 
 namespace vd {
+
     class VideoError {
     public:
         static std::string avStrError(int error);
@@ -16,20 +17,22 @@ namespace vd {
 
     public:
         void success();
-        void error(int error_code, std::string error_message, bool is_success = false);
+        void success(int return_code);
+        void error(int return_code, std::string error_message, bool is_success = false);
         
     public:
         bool isSuccess();
 
-        int         errorCode();
+        int         returnCode();
         std::string errorMessage();
 
     private:
-        int error_code_;
+        int return_code_;
         std::string error_message_;
 
         bool is_success_;
     };
+    
 };
 
 #endif

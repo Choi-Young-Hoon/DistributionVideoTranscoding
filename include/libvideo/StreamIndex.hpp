@@ -2,6 +2,7 @@
 #define __LIB_VIDEO_STREAM_INDEX_HEADER__
 
 namespace vd {
+
     class StreamIndex {
     public:
         explicit StreamIndex();
@@ -19,6 +20,7 @@ namespace vd {
         int video_stream_index_;
         int audio_stream_index_;
     };
+    
 };
 
 #endif

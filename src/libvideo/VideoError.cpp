@@ -28,19 +28,23 @@ VideoError::~VideoError()
 
 
 void VideoError::success() {
-    this->error_code_ = 0;
+    this->success(0);
+}
+
+void VideoError::success(int return_code) {
+    this->return_code_ = return_code;
     this->error_message_ = "";
     this->is_success_ = true;
 }
 
 void VideoError::error(int error_code, std::string error_message, bool is_success) {
-    this->error_code_ = error_code;
+    this->return_code_ = error_code;
     this->error_message_ = error_message;
     this->is_success_ = is_success;
 }
 
-int VideoError::errorCode() {
-    return this->error_code_;
+int VideoError::returnCode() {
+    return this->return_code_;
 }
 
 std::string VideoError::errorMessage() {

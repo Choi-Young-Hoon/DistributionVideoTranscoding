@@ -5,7 +5,9 @@ include (${TRANSCODING_SERVER_PROJECT_SOURCE_DIR}/cmake/FFmpegProperty.cmake)
 # sources
 set (SOURCES VideoReader.cpp
              VideoError.cpp
-             StreamIndex.cpp)
+             VideoEncodedFrame.cpp
+             StreamIndex.cpp
+             ByteBuffer.cpp)
 
 
 # target name

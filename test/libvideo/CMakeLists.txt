@@ -8,6 +8,7 @@ set (OUTPUT test.out)
 # sources
 set (SOURCES main.cpp
              Video_TEST.cpp
+             ByteBuffer_TEST.cpp
 )
 
 
