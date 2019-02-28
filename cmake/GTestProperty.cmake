@@ -1,0 +1,7 @@
+set (GTEST_DIR ${TRANSCODING_SERVER_PROJECT_SOURCE_DIR}/thirdparty/gtest)
+set (GTEST_INCLUDE_DIR ${GTEST_DIR}/googletest/include)
+set (GTEST_LIBRARY_DIR ${GTEST_DIR}/build/lib)
+
+find_library (GTEST_LIBRARY NAMES libgtest.a HINTS ${GTEST_LIBRARY_DIR} REQUIRED)
+
+set (GTEST_LIBRARYS ${GTEST_LIBRARY})

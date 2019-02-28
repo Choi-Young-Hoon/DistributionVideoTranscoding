@@ -6,7 +6,7 @@ extern "C" {
     #include "libavcodec/avcodec.h"
 }
 
-using namespace vd;
+using namespace av;
 
 CodecManager::CodecManager()
 {}
@@ -15,7 +15,7 @@ CodecManager::~CodecManager()
 {}
 
 
-Codec* CodecManager::CreateCodec(CODEC_TYPE codecType, CODEC_ID codecID, CodecParameter& codecParamter, Error* error) {
+Codec* CodecManager::CreateCodec(CODEC_TYPE codecType, CODEC_ID codecID, CodecParameter codecParamter, Error* error) {
     Codec* codec = CodecManager::CreateCodec(codecType, error);
     if (error->isSuccess() == false) {
         return NULL;

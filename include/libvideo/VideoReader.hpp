@@ -10,9 +10,11 @@
 #include "libvideo/StreamIndex.hpp"
 #include "libvideo/CodecID.hpp"
 #include "libvideo/EncodedFrame.hpp"
+#include "libvideo/Rational.hpp"
+#include "libvideo/CodecParameter.hpp"
 
 struct AVFormatContext;
-namespace vd {
+namespace av {
 
     class VideoReader {
     public:
@@ -29,13 +31,22 @@ namespace vd {
         bool isOpen();
         void printInfo();
 
+		CodecParameter videoCodecParameter();
+		CodecParameter audioCodecParameter();
+
         StreamIndex streamIndex();
-        STREAM_INDEX getVideoStreamIndex();
-        STREAM_INDEX getAudioStreamIndex();
+        STREAM_INDEX videoStreamIndex();
+        STREAM_INDEX audioStreamIndex();
 
         CodecID codecID();
-        CODEC_ID getVideoCodecID();
-        CODEC_ID getAudioCodecID();
+        CODEC_ID videoCodecID();
+        CODEC_ID audioCodecID();
+
+        int64_t  bitRate();
+        Rational frameRate();
+
+        int width();
+        int height();
 
     private:
         void getStreamIndex();

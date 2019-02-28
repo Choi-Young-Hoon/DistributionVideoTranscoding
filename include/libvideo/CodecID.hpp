@@ -3,7 +3,7 @@
 
 #include "libvideo/Type.hpp"
 
-namespace vd {
+namespace av {
     
     class CodecID {
     public:

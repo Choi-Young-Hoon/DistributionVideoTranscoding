@@ -4,8 +4,8 @@
 #include <iostream>
 #include <cstring>
 
-#define VD_UNUSED(var) (void)var;
-namespace vd {
+#define AV_UNUSED(var) (void)var;
+namespace av {
 
     enum _FRAME_TYPE {
         VIDEO = 0,
@@ -14,7 +14,9 @@ namespace vd {
     typedef enum _FRAME_TYPE FRAME_TYPE;
 
     enum _CODEC_TYPE {
-        ENCODE = 0,
+		UNKNOWN = 0,
+
+        ENCODE,
         DECODE,
     };
     typedef enum _CODEC_TYPE CODEC_TYPE;

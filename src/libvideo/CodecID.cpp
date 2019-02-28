@@ -4,7 +4,7 @@ extern "C" {
     #include "libavcodec/avcodec.h"
 }
 
-using namespace vd;
+using namespace av;
 
 CodecID::CodecID()
 : m_videoCodecID(AV_CODEC_ID_NONE), m_audioCodecID(AV_CODEC_ID_NONE)

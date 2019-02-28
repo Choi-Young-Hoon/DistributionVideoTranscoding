@@ -3,11 +3,12 @@
 
 #include "libvideo/Type.hpp"
 
-namespace vd {
+namespace av {
 
     class StreamIndex {
     public:
         explicit StreamIndex();
+				 StreamIndex(const StreamIndex& streamIndex);
         explicit StreamIndex(STREAM_INDEX videoStreamIndex, STREAM_INDEX audioStreamIndex);
         virtual ~StreamIndex();
 

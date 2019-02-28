@@ -11,20 +11,32 @@
 
 struct AVCodec;
 struct AVCodecContext;
-namespace vd {
+namespace av {
     
     class Codec {
     public:
-        explicit Codec();
+        explicit Codec(CODEC_TYPE codecType);
         virtual ~Codec();
-	
+		
+		friend class Encoder;
+		friend class Decoder;
+
 	public:
 		void initializeCodec(CODEC_ID codecID, CodecParameter& codecParameter, Error* error);
+	
+	public:
+		CODEC_TYPE codecType();
+		void	   codecType(CODEC_TYPE codecType);
 
 	protected:
 		virtual AVCodec* createCodec(CODEC_ID codecID);
 
+	private:
+		void openCodec(CodecParameter& codecParameter, Error* error);
+
     private:
+		CODEC_TYPE m_codecType;
+
 		AVCodec* m_codec;
 
 		AVCodecContext* m_codecContext;

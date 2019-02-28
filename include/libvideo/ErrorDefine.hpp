@@ -4,13 +4,13 @@
 #include <string>
 
 
-#define VIDEO_ALLOC_EXCEPTION(mem)                            \
+#define AV_ALLOC_EXCEPTION(mem)                            \
 if ((mem) == NULL) {                                          \
     std::cout << "temp error message - NULL..." << std::endl; \
 }
 
 
-namespace vd {
+namespace av {
 
     enum _VIDEO_ERROR {
         SUCCESS = 0,

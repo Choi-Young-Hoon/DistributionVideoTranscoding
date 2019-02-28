@@ -6,11 +6,11 @@
 #include "libvideo/Codec.hpp"
 #include "libvideo/CodecParameter.hpp"
 
-namespace vd {
+namespace av {
 
     class CodecManager {
     public:
-        static Codec* CreateCodec(CODEC_TYPE codecType, CODEC_ID codecID, CodecParameter& codecParamter, Error* error);
+        static Codec* CreateCodec(CODEC_TYPE codecType, CODEC_ID codecID, CodecParameter codecParamter, Error* error);
 
     private:
         static Codec* CreateCodec(CODEC_TYPE codecType, Error* error);

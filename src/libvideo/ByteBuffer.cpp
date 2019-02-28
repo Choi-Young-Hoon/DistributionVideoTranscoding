@@ -5,7 +5,7 @@
 #include <memory>
 #include <cstring>
 
-using namespace vd;
+using namespace av;
 
 
 Buffer::Buffer() 
@@ -29,7 +29,7 @@ void Buffer::clear() {
 void Buffer::allocate(int size) {
     this->clear();
 
-    VIDEO_ALLOC_EXCEPTION(this->m_data = new unsigned char[size]);
+	AV_ALLOC_EXCEPTION(this->m_data = new unsigned char[size]);
     memset(this->m_data, 0x00, this->m_bufferSize);
 
     this->m_bufferSize = size;
@@ -38,7 +38,7 @@ void Buffer::allocate(int size) {
 void Buffer::reserve(int size) {
     unsigned char* tempData = this->m_data;
     
-    VIDEO_ALLOC_EXCEPTION(this->m_data = new unsigned char[size]);
+    AV_ALLOC_EXCEPTION(this->m_data = new unsigned char[size]);
     memset(this->m_data, 0x00, size);
     
     int copySize = (this->m_bufferSize <= size) ? this->m_bufferSize : size;

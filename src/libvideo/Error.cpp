@@ -5,7 +5,7 @@ extern "C" {
     #include "libavutil/error.h"
 }
 
-using namespace vd;
+using namespace av;
 
 
 std::string Error::avStrError(int errorCode) {

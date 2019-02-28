@@ -5,10 +5,10 @@ extern "C" {
     #include "libavcodec/avcodec.h"
 }
 
-using namespace vd;
+using namespace av;
 
 EncodedFrame::EncodedFrame() {
-    VIDEO_ALLOC_EXCEPTION(this->m_packet = new AVPacket);
+    AV_ALLOC_EXCEPTION(this->m_packet = new AVPacket);
     av_init_packet(this->m_packet);
 }
 

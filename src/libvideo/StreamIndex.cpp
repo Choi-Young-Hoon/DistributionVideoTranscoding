@@ -1,9 +1,13 @@
 #include "libvideo/StreamIndex.hpp"
 
-using namespace vd;
+using namespace av;
 
 StreamIndex::StreamIndex()
-: m_videoStreamIndex(0), m_audioStreamIndex(0)
+: m_videoStreamIndex(-1), m_audioStreamIndex(-1)
+{}
+
+StreamIndex::StreamIndex(const StreamIndex& streamIndex) 
+: m_videoStreamIndex(streamIndex.m_videoStreamIndex), m_audioStreamIndex(streamIndex.m_audioStreamIndex)
 {}
 
 StreamIndex::StreamIndex(STREAM_INDEX videoStreamIndex, STREAM_INDEX audioStreamIndex)

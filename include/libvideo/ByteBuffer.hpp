@@ -7,7 +7,7 @@
 
 #include "libvideo/ErrorDefine.hpp"
 
-namespace vd {
+namespace av {
     
     class Buffer {
     public:

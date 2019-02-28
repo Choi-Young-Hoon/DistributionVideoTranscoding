@@ -7,7 +7,7 @@
 #include "libvideo/Type.hpp"
 
 struct AVPacket;
-namespace vd {
+namespace av {
 
     class EncodedFrame {
     public:
@@ -15,6 +15,8 @@ namespace vd {
         virtual ~EncodedFrame();
 
         friend class VideoReader;
+		friend class Encoder;
+		friend class Decoder;
 
     public:
         bool isEmpty();

@@ -4,9 +4,10 @@ extern "C" {
 	#include "libavcodec/avcodec.h"
 }
 
-using namespace vd;
+using namespace av;
 
 EncodeCodec::EncodeCodec()
+: Codec(ENCODE)
 {}
 
 EncodeCodec::~EncodeCodec()

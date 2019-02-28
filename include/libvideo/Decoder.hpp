@@ -5,14 +5,20 @@
 #include "libvideo/Error.hpp"
 #include "libvideo/Codec.hpp"
 #include "libvideo/StreamIndex.hpp"
+#include "libvideo/EncodedFrame.hpp"
+#include "libvideo/RawFrame.hpp"
 
-namespace vd {
+namespace av {
 	
 	class Decoder {
 	public:
-		explicit Decoder();
+		explicit Decoder(StreamIndex& streamIndex, Codec* videoCodec, Codec* audioCodec);
 		virtual ~Decoder();
 
+	public:
+		void Decode(Codec& codec, EncodedFrame& encodedFrame, RawFrame* rawFrame, Error* error);
+		void Decode(EncodedFrame& encodedFrame, RawFrame* rawFrame, Error* error);
+		
 	public:
 		void setVideoCodec(Codec* codec);
 		void setAudioCodec(Codec* codec);

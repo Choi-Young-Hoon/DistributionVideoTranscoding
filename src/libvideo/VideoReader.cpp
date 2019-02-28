@@ -4,7 +4,7 @@ extern "C" {
     #include "libavformat/avformat.h"
 }
 
-using namespace vd;
+using namespace av;
 
 VideoReader::VideoReader()
 : m_formatContext(NULL)
@@ -69,16 +69,39 @@ void VideoReader::printInfo() {
     av_dump_format(this->m_formatContext, 0, NULL, 0);
 }
 
+CodecParameter VideoReader::videoCodecParameter() {
+	CodecParameter codecParameter;
+	
+	if (this->isOpen() == true) {
+		codecParameter.m_codecParameter = this->m_formatContext->streams[this->m_streamIndex.videoStreamIndex()]->codecpar;
+	} else {
+		codecParameter.m_codecParameter = NULL;
+	}
+	
+	return codecParameter;
+}
+
+CodecParameter VideoReader::audioCodecParameter() {
+	CodecParameter codecParameter;
+
+	if (this->isOpen() == true) {
+		codecParameter.m_codecParameter = this->m_formatContext->streams[this->m_streamIndex.audioStreamIndex()]->codecpar;
+	} else {
+		codecParameter.m_codecParameter = NULL;
+	}
+	
+	return codecParameter;
+}
 
 StreamIndex VideoReader::streamIndex() {
     return this->m_streamIndex;
 }
 
-STREAM_INDEX VideoReader::getVideoStreamIndex() {
+STREAM_INDEX VideoReader::videoStreamIndex() {
     return this->m_streamIndex.videoStreamIndex();
 }
 
-STREAM_INDEX VideoReader::getAudioStreamIndex() {
+STREAM_INDEX VideoReader::audioStreamIndex() {
     return this->m_streamIndex.audioStreamIndex();
 }
 
@@ -87,26 +110,56 @@ CodecID VideoReader::codecID() {
     return this->m_codecID;
 }
 
-CODEC_ID VideoReader::getVideoCodecID() {
+CODEC_ID VideoReader::videoCodecID() {
     return this->m_codecID.videoCodecID();
 }
 
-CODEC_ID VideoReader::getAudioCodecID() {
+CODEC_ID VideoReader::audioCodecID() {
     return this->m_codecID.audioCodecID();
 }
 
+int64_t VideoReader::bitRate() {
+    if (this->isOpen() == false) {
+        return -1;
+    }
+
+    return this->m_formatContext->bit_rate;
+}
+
+Rational VideoReader::frameRate() {
+    if (this->isOpen() == false) {
+        return Rational(-1, -1);
+    }
+
+    AVRational rational = this->m_formatContext->streams[this->m_streamIndex.videoStreamIndex()]->r_frame_rate;
+    return Rational(rational.num, rational.den);
+}
+
+int VideoReader::width() {
+    if (this->isOpen() == false) {
+        return -1;
+    }
+    return this->m_formatContext->streams[this->m_streamIndex.videoStreamIndex()]->codecpar->width;
+}
+
+int VideoReader::height() {
+    if (this->isOpen() == false) {
+        return -1;
+    }
+    return this->m_formatContext->streams[this->m_streamIndex.videoStreamIndex()]->codecpar->height;
+}
 
 void VideoReader::getStreamIndex() {
     STREAM_INDEX videoStreamIndex = av_find_best_stream(this->m_formatContext, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
-    STREAM_INDEX audioStreamIndex = av_find_best_stream(this->m_formatContext, AVMEDIA_TYPE_AUDIO, -1, audioStreamIndex, NULL, 0);
+    STREAM_INDEX audioStreamIndex = av_find_best_stream(this->m_formatContext, AVMEDIA_TYPE_AUDIO, -1, videoStreamIndex, NULL, 0);
 
     this->m_streamIndex.videoStreamIndex(videoStreamIndex);
     this->m_streamIndex.audioStreamIndex(audioStreamIndex);
 }
 
 void VideoReader::getCodecID() {
-    CODEC_ID videoCodecID = this->getCodecID(this->getVideoStreamIndex());
-    CODEC_ID audioCodecID = this->getCodecID(this->getAudioStreamIndex());
+    CODEC_ID videoCodecID = this->getCodecID(this->videoStreamIndex());
+    CODEC_ID audioCodecID = this->getCodecID(this->audioStreamIndex());
 
     this->m_codecID.videoCodecID(videoCodecID);
     this->m_codecID.audioCodecID(audioCodecID);

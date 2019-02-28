@@ -6,7 +6,7 @@ const unsigned char* g_data   = (unsigned char*)"OOOO111122223333";
 const int            g_length = 16;
 
 TEST(ByteBuffer_TEST, BYTE_BUFFER_INIT) {
-    vd::ByteBuffer buffer(g_data, g_length);
+    av::ByteBuffer buffer(g_data, g_length);
     ASSERT_EQ(buffer.getLength(), g_length);
 
     for (int i = 0; i < buffer.getLength(); i++) {
@@ -15,18 +15,18 @@ TEST(ByteBuffer_TEST, BYTE_BUFFER_INIT) {
 }
 
 TEST(ByteBuffer_TEST, REFER_TEST) {
-    vd::ByteBuffer buffer(g_data, g_length);
+    av::ByteBuffer buffer(g_data, g_length);
     ASSERT_EQ(buffer.getLength(), g_length);
 
     {
-        vd::ByteBuffer referBuffer_1;
+        av::ByteBuffer referBuffer_1;
         referBuffer_1 = buffer;
         ASSERT_EQ(buffer.getLength(), referBuffer_1.getLength());
         
-        vd::ByteBuffer referBuffer_2(buffer);
+        av::ByteBuffer referBuffer_2(buffer);
         ASSERT_EQ(buffer.getLength(), referBuffer_2.getLength());
 
-        vd::ByteBuffer referBuffer_3;
+        av::ByteBuffer referBuffer_3;
         referBuffer_3.setData(buffer);
         ASSERT_EQ(buffer.getLength(), referBuffer_3.getLength());
 
@@ -41,11 +41,11 @@ TEST(ByteBuffer_TEST, REFER_TEST) {
 }
 
 TEST(ByteBuffer_TEST, CLONE_TEST) {
-    vd::ByteBuffer buffer(g_data, g_length);
+    av::ByteBuffer buffer(g_data, g_length);
     ASSERT_EQ(buffer.getLength(), g_length);
 
     {
-        vd::ByteBuffer referBuffer;
+        av::ByteBuffer referBuffer;
         referBuffer = buffer.clone();
         ASSERT_EQ(buffer.getLength(), referBuffer.getLength());
 
@@ -56,10 +56,10 @@ TEST(ByteBuffer_TEST, CLONE_TEST) {
 }
 
 TEST(ByteBuffer_TEST, APPEND_TEST) {
-    vd::ByteBuffer buffer_1(g_data, g_length);
+    av::ByteBuffer buffer_1(g_data, g_length);
     ASSERT_EQ(buffer_1.getLength(), g_length);
 
-    vd::ByteBuffer buffer_2(g_data, g_length);
+    av::ByteBuffer buffer_2(g_data, g_length);
     ASSERT_EQ(buffer_2.getLength(), g_length);
 
     int tempBuffer1Length = buffer_1.getLength();
@@ -77,12 +77,12 @@ TEST(ByteBuffer_TEST, APPEND_TEST) {
 }
 
 TEST(ByteBuffer_TEST, SUB_TEST) {
-    vd::ByteBuffer buffer(g_data, g_length);
+    av::ByteBuffer buffer(g_data, g_length);
     ASSERT_EQ(buffer.getLength(), g_length);
 
-    vd::ByteBuffer subBuffer_1 = buffer.sub(0, 4);
-    vd::ByteBuffer subBuffer_2 = buffer.sub(4, 8);
-    vd::ByteBuffer subBuffer_3 = buffer.sub(8, 12);
+    av::ByteBuffer subBuffer_1 = buffer.sub(0, 4);
+    av::ByteBuffer subBuffer_2 = buffer.sub(4, 8);
+    av::ByteBuffer subBuffer_3 = buffer.sub(8, 12);
 
     for (int i = 0; i < subBuffer_1.getLength(); i++) {
         ASSERT_EQ(subBuffer_1[i], g_data[i]);

@@ -4,7 +4,7 @@
 #include "libvideo/Type.hpp"
 #include "libvideo/Codec.hpp"
 
-namespace vd {
+namespace av {
 	
 	class EncodeCodec : public Codec {
 	public:
@@ -15,7 +15,6 @@ namespace vd {
 		virtual AVCodec* createCodec(CODEC_ID codecID);
 
 	private:
-	
 	};
 
 };
