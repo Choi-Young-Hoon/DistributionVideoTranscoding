@@ -4,19 +4,19 @@
 #include <iostream>
 #include <string>
 
-#include "libvideo/VideoErrorDefine.hpp"
+#include "libvideo/ErrorDefine.hpp"
 
 namespace vd {
 
-    class VideoError {
+    class Error {
     public:
         static std::string avStrError (int errorCode);
         static std::string getErrorStr(VIDEO_ERROR errorCode);
 
     public:
-        explicit VideoError();
-        explicit VideoError(int errorCode, std::string errorMessage, bool isSuccess = false);
-        virtual ~VideoError();
+        explicit Error();
+        explicit Error(int errorCode, std::string errorMessage, bool isSuccess = false);
+        virtual ~Error();
 
     public:
         void success();

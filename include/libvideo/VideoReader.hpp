@@ -4,12 +4,12 @@
 #include <iostream>
 #include <string>
 
-#include "libvideo/VideoErrorDefine.hpp"
-#include "libvideo/VideoError.hpp"
-#include "libvideo/VideoType.hpp"
-#include "libvideo/VideoStreamIndex.hpp"
-#include "libvideo/VideoCodecID.hpp"
-#include "libvideo/VideoEncodedFrame.hpp"
+#include "libvideo/ErrorDefine.hpp"
+#include "libvideo/Error.hpp"
+#include "libvideo/Type.hpp"
+#include "libvideo/StreamIndex.hpp"
+#include "libvideo/CodecID.hpp"
+#include "libvideo/EncodedFrame.hpp"
 
 struct AVFormatContext;
 namespace vd {
@@ -20,20 +20,20 @@ namespace vd {
         virtual ~VideoReader();
 
     public:
-        void open (const std::string fileName, VideoError* error);
+        void open (const std::string fileName, Error* error);
         void close();
 
-        void readFrame(VideoEncodedFrame* encodedFrame, VideoError* error);
+        void readFrame(EncodedFrame* encodedFrame, Error* error);
 
     public:
         bool isOpen();
         void printInfo();
 
-        VideoStreamIndex streamIndex();
+        StreamIndex streamIndex();
         STREAM_INDEX getVideoStreamIndex();
         STREAM_INDEX getAudioStreamIndex();
 
-        VideoCodecID codecID();
+        CodecID codecID();
         CODEC_ID getVideoCodecID();
         CODEC_ID getAudioCodecID();
 
@@ -44,8 +44,8 @@ namespace vd {
         CODEC_ID getCodecID(STREAM_INDEX streamIndex);
 
     private:
-        VideoCodecID     m_codecID;
-        VideoStreamIndex m_streamIndex;
+        CodecID     m_codecID;
+        StreamIndex m_streamIndex;
 
         AVFormatContext* m_formatContext;
     };

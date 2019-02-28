@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 
-#include "libvideo/VideoErrorDefine.hpp"
+#include "libvideo/ErrorDefine.hpp"
 
 namespace vd {
     

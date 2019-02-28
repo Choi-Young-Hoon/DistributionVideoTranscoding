@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 
+#define VD_UNUSED(var) (void)var;
 namespace vd {
 
     enum _FRAME_TYPE {

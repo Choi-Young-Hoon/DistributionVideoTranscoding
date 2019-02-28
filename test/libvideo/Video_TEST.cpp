@@ -6,7 +6,7 @@
 #define TEST_FILE "./test.mp4"
 
 TEST(Video_TEST, OPEN_CLOSE_TEST) {
-    vd::VideoError error;
+    vd::Error error;
     vd::VideoReader videoReader;
 
     videoReader.open(TEST_FILE, &error);
@@ -17,14 +17,14 @@ TEST(Video_TEST, OPEN_CLOSE_TEST) {
 }
 
 TEST(Video_TEST, READ_FRAME_TEST) {
-    vd::VideoError error;
+    vd::Error error;
     vd::VideoReader videoReader;
 
     videoReader.open(TEST_FILE, &error);
     ASSERT_TRUE(error.isSuccess());
 
     int frameCount = 0;
-    vd::VideoEncodedFrame frame;
+    vd::EncodedFrame frame;
     while (true) {
         videoReader.readFrame(&frame, &error);
         if (error.returnCode() == vd::FILE_EOF) {

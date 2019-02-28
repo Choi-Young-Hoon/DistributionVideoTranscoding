@@ -4,15 +4,15 @@
 #include <iostream>
 #include <memory>
 
-#include "libvideo/VideoType.hpp"
+#include "libvideo/Type.hpp"
 
 struct AVPacket;
 namespace vd {
 
-    class VideoEncodedFrame {
+    class EncodedFrame {
     public:
-        explicit VideoEncodedFrame();
-        virtual ~VideoEncodedFrame();
+        explicit EncodedFrame();
+        virtual ~EncodedFrame();
 
         friend class VideoReader;
 

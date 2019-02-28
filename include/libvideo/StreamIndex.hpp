@@ -1,15 +1,15 @@
 #ifndef __LIB_VIDEO_STREAM_INDEX_HEADER__
 #define __LIB_VIDEO_STREAM_INDEX_HEADER__
 
-#include "libvideo/VideoType.hpp"
+#include "libvideo/Type.hpp"
 
 namespace vd {
 
-    class VideoStreamIndex {
+    class StreamIndex {
     public:
-        explicit VideoStreamIndex();
-        explicit VideoStreamIndex(STREAM_INDEX videoStreamIndex, STREAM_INDEX audioStreamIndex);
-        virtual ~VideoStreamIndex();
+        explicit StreamIndex();
+        explicit StreamIndex(STREAM_INDEX videoStreamIndex, STREAM_INDEX audioStreamIndex);
+        virtual ~StreamIndex();
 
     public:
         STREAM_INDEX videoStreamIndex();

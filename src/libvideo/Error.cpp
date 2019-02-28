@@ -1,5 +1,5 @@
-#include "libvideo/VideoError.hpp"
-#include "libvideo/VideoErrorDefine.hpp"
+#include "libvideo/Error.hpp"
+#include "libvideo/ErrorDefine.hpp"
 
 extern "C" {
     #include "libavutil/error.h"
@@ -8,7 +8,7 @@ extern "C" {
 using namespace vd;
 
 
-std::string VideoError::avStrError(int errorCode) {
+std::string Error::avStrError(int errorCode) {
     char errorMessage[1024] = {0, };
     
     av_strerror(errorCode, errorMessage, 1024);
@@ -16,7 +16,7 @@ std::string VideoError::avStrError(int errorCode) {
     return errorMessage;
 }
 
-std::string VideoError::getErrorStr(VIDEO_ERROR errorCode)  {
+std::string Error::getErrorStr(VIDEO_ERROR errorCode)  {
     std::string retStr;
     
     switch (errorCode) {
@@ -32,42 +32,42 @@ std::string VideoError::getErrorStr(VIDEO_ERROR errorCode)  {
 }
 
 
-VideoError::VideoError() {
+Error::Error() {
     this->success();
 }
 
-VideoError::VideoError(int errorCode, std::string errorMessage, bool isSuccess) {
+Error::Error(int errorCode, std::string errorMessage, bool isSuccess) {
     this->error(errorCode, errorMessage, isSuccess);
 }
 
-VideoError::~VideoError() 
+Error::~Error() 
 {}
 
 
-void VideoError::success() {
+void Error::success() {
     this->success(0);
 }
 
-void VideoError::success(int returnCode) {
+void Error::success(int returnCode) {
     this->m_returnCode   = returnCode;
     this->m_errorMessage = "";
     this->m_isSuccess    = true;
 }
 
-void VideoError::error(int errorCode, std::string errorMessage, bool isSuccess) {
+void Error::error(int errorCode, std::string errorMessage, bool isSuccess) {
     this->m_returnCode   = errorCode;
     this->m_errorMessage = errorMessage;
     this->m_isSuccess    = isSuccess;
 }
 
-int VideoError::returnCode() {
+int Error::returnCode() {
     return this->m_returnCode;
 }
 
-std::string VideoError::errorMessage() {
+std::string Error::errorMessage() {
     return this->m_errorMessage;
 }
 
-bool VideoError::isSuccess() {
+bool Error::isSuccess() {
     return this->m_isSuccess;
 }

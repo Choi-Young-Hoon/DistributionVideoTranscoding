@@ -15,12 +15,12 @@ VideoReader::~VideoReader() {
 }
 
 
-void VideoReader::open(const std::string fileName, VideoError* error) {
+void VideoReader::open(const std::string fileName, Error* error) {
     int ret = 0;
 
     ret = avformat_open_input(&this->m_formatContext, fileName.c_str(), NULL, NULL);
     if (ret < 0) {
-        error->error(ret, VideoError::avStrError(ret));
+        error->error(ret, Error::avStrError(ret));
         return;
     }
     this->getStreamIndex();
@@ -43,19 +43,19 @@ bool VideoReader::isOpen() {
     return true;
 }
 
-void VideoReader::readFrame(VideoEncodedFrame* encodedFrame, VideoError* error) {
+void VideoReader::readFrame(EncodedFrame* encodedFrame, Error* error) {
     if (this->isOpen() == false) {
-        error->error(FILE_NOT_OPENED, VideoError::getErrorStr(FILE_NOT_OPENED));
+        error->error(FILE_NOT_OPENED, Error::getErrorStr(FILE_NOT_OPENED));
         return;
     }
     encodedFrame->clear();
 
     int ret = av_read_frame(this->m_formatContext, encodedFrame->m_packet);
     if (ret == AVERROR_EOF) {
-        error->error(FILE_EOF, VideoError::getErrorStr(FILE_EOF), true);
+        error->error(FILE_EOF, Error::getErrorStr(FILE_EOF), true);
         return;
     } else if (ret < 0) {
-        error->error(ret, VideoError::avStrError(ret));
+        error->error(ret, Error::avStrError(ret));
         return;
     }
     
@@ -70,7 +70,7 @@ void VideoReader::printInfo() {
 }
 
 
-VideoStreamIndex VideoReader::streamIndex() {
+StreamIndex VideoReader::streamIndex() {
     return this->m_streamIndex;
 }
 
@@ -83,7 +83,7 @@ STREAM_INDEX VideoReader::getAudioStreamIndex() {
 }
 
 
-VideoCodecID VideoReader::codecID() {
+CodecID VideoReader::codecID() {
     return this->m_codecID;
 }
 

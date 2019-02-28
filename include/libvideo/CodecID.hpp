@@ -1,15 +1,15 @@
 #ifndef __LIB_VIDEO_CODEC_ID_HEADER__
 #define __LIB_VIDEO_CODEC_ID_HEADER__
 
-#include "libvideo/VideoType.hpp"
+#include "libvideo/Type.hpp"
 
 namespace vd {
     
-    class VideoCodecID {
+    class CodecID {
     public:
-        explicit VideoCodecID();
-        explicit VideoCodecID(CODEC_ID videoCodecID, CODEC_ID audioCodecID);
-        virtual ~VideoCodecID();
+        explicit CodecID();
+        explicit CodecID(CODEC_ID videoCodecID, CODEC_ID audioCodecID);
+        virtual ~CodecID();
 
     public:
         CODEC_ID videoCodecID();

@@ -4,12 +4,20 @@ include (${TRANSCODING_SERVER_PROJECT_SOURCE_DIR}/cmake/FFmpegProperty.cmake)
 
 # sources
 set (SOURCES VideoReader.cpp
-             VideoError.cpp
-             VideoEncodedFrame.cpp
-             VideoStreamIndex.cpp
-             VideoCodecID.cpp
-             VideoCodec.cpp
-             VideoCodecManager.cpp
+             EncodedFrame.cpp
+             StreamIndex.cpp
+             
+             CodecID.cpp
+             Codec.cpp
+             CodecManager.cpp
+
+             DecodeCodec.cpp 
+             Decoder.cpp
+
+             EncodeCodec.cpp 
+             Encoder.cpp
+
+             Error.cpp
              ByteBuffer.cpp)
 
 

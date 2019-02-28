@@ -17,6 +17,8 @@ namespace vd {
 
         FILE_NOT_OPENED = 1000,
         FILE_EOF,
+
+		MEMORY_ALLOC_FAILED = 1000,
     };
     typedef enum _VIDEO_ERROR VIDEO_ERROR;
 };
