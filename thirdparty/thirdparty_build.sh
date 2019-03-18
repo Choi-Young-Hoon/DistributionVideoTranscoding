@@ -9,7 +9,7 @@ function gtest_build() {
     cd $root_path
 }
 
-function ffmpeg_depend_packet_install() {
+function ffmpeg_depend_package_install() {
     sudo apt-get -y install libx264-dev libx265-dev libmp3lame-dev libvpx-dev libfdk-aac-dev  \
                             autoconf nasm automake build-essential pkg-config zlib1g-dev      \
                             libvdpau-dev libva-dev libx11-dev libgnutls28-dev libssh-dev libbluray-dev libva-dev
@@ -26,7 +26,7 @@ function ffmpeg_build() {
 }
 
 
-ffmpeg_depend_packet_install
+ffmpeg_depend_package_install
 
 gtest_build
 ffmpeg_build
